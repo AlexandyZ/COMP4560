@@ -15,11 +15,12 @@ namespace asgn5v1
 	public class Transformer : System.Windows.Forms.Form
 	{
 		private System.ComponentModel.IContainer components;
-		//private bool GetNewData();
+        //private bool GetNewData();
 
-		// basic data for Transformer
+        // basic data for Transformer
+        bool status = true;
 
-		int numpts = 0;
+        int numpts = 0;
 		int numlines = 0;
 		bool gooddata = false;
 		double[,] vertices;
@@ -605,29 +606,35 @@ namespace asgn5v1
 
 		private void toolBar1_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)
 		{
+     
 			if (e.Button == transleftbtn)
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(-75, 0, 0));
 				Refresh();
 			}
-			if (e.Button == transrightbtn) 
-			{
+			if (e.Button == transrightbtn)
+            {
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(75, 0, 0));
                 Refresh();
 			}
 			if (e.Button == transupbtn)
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(0, -35, 0));
                 Refresh();
 			}
 			
 			if(e.Button == transdownbtn)
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(0, 35, 0));
                 Refresh();
 			}
 			if (e.Button == scaleupbtn) 
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(-scrnpts[0, 0], -scrnpts[0, 1], -scrnpts[0, 2]));
                 ctrans = multiplication(ctrans, scaleMatrix(1.1d));
                 ctrans = multiplication(ctrans, translateMatrix(scrnpts[0, 0], scrnpts[0, 1], scrnpts[0, 2]));
@@ -635,6 +642,7 @@ namespace asgn5v1
 			}
 			if (e.Button == scaledownbtn) 
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(-scrnpts[0, 0], -scrnpts[0, 1], -scrnpts[0, 2]));
                 ctrans = multiplication(ctrans, scaleMatrix(0.9d));
                 ctrans = multiplication(ctrans, translateMatrix(scrnpts[0, 0], scrnpts[0, 1], scrnpts[0, 2]));
@@ -642,6 +650,7 @@ namespace asgn5v1
 			}
 			if (e.Button == rotxby1btn) 
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(-scrnpts[0, 0], -scrnpts[0, 1], -scrnpts[0, 2]));
                 ctrans = multiplication(ctrans, rotateMatrix('x'));
                 ctrans = multiplication(ctrans, translateMatrix(scrnpts[0, 0], scrnpts[0, 1], scrnpts[0, 2]));
@@ -649,6 +658,7 @@ namespace asgn5v1
             }
             if (e.Button == rotyby1btn) 
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(-scrnpts[0, 0], -scrnpts[0, 1], -scrnpts[0, 2]));
                 ctrans = multiplication(ctrans, rotateMatrix('y'));
                 ctrans = multiplication(ctrans, translateMatrix(scrnpts[0, 0], scrnpts[0, 1], scrnpts[0, 2]));
@@ -656,6 +666,7 @@ namespace asgn5v1
             }
             if (e.Button == rotzby1btn) 
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(-scrnpts[0, 0], -scrnpts[0, 1], -scrnpts[0, 2]));
                 ctrans = multiplication(ctrans, rotateMatrix('z'));
                 ctrans = multiplication(ctrans, translateMatrix(scrnpts[0, 0], scrnpts[0, 1], scrnpts[0, 2]));
@@ -664,41 +675,48 @@ namespace asgn5v1
 
             if (e.Button == rotxbtn) 
 			{
-                while (true)
+                status = true;
+                while (status == true)
                 {
                     ctrans = multiplication(ctrans, translateMatrix(-scrnpts[0, 0], -scrnpts[0, 1], -scrnpts[0, 2]));
                     ctrans = multiplication(ctrans, rotateMatrix('x'));
                     ctrans = multiplication(ctrans, translateMatrix(scrnpts[0, 0], scrnpts[0, 1], scrnpts[0, 2]));
                     Refresh();
                     System.Threading.Thread.Sleep(100);
+                    Application.DoEvents();
                 }
             }
             if (e.Button == rotybtn) 
 			{
-                while (true)
+                status = true;
+                while (status == true)
                 {
                     ctrans = multiplication(ctrans, translateMatrix(-scrnpts[0, 0], -scrnpts[0, 1], -scrnpts[0, 2]));
                     ctrans = multiplication(ctrans, rotateMatrix('y'));
                     ctrans = multiplication(ctrans, translateMatrix(scrnpts[0, 0], scrnpts[0, 1], scrnpts[0, 2]));
                     Refresh();
                     System.Threading.Thread.Sleep(100);
+                    Application.DoEvents();
                 }
             }
 
             if (e.Button == rotzbtn) 
 			{
-                while (true)
+                status = true;
+                while (status == true)
                 {
                     ctrans = multiplication(ctrans, translateMatrix(-scrnpts[0, 0], -scrnpts[0, 1], -scrnpts[0, 2]));
                     ctrans = multiplication(ctrans, rotateMatrix('z'));
                     ctrans = multiplication(ctrans, translateMatrix(scrnpts[0, 0], scrnpts[0, 1], scrnpts[0, 2]));
                     Refresh();
                     System.Threading.Thread.Sleep(100);
+                    Application.DoEvents();
                 }
             }
 
             if (e.Button == shearleftbtn)
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(-scrnpts[16, 0], -scrnpts[16, 1], -scrnpts[0, 2]));
                 ctrans = multiplication(ctrans, shearMatrix(false));
                 ctrans = multiplication(ctrans, translateMatrix(scrnpts[16, 0], scrnpts[16, 1], scrnpts[0, 2]));
@@ -707,6 +725,7 @@ namespace asgn5v1
 
 			if (e.Button == shearrightbtn) 
 			{
+                status = false;
                 ctrans = multiplication(ctrans, translateMatrix(-scrnpts[16, 0], -scrnpts[16, 1], -scrnpts[0, 2]));
                 ctrans = multiplication(ctrans, shearMatrix(true));
                 ctrans = multiplication(ctrans, translateMatrix(scrnpts[16, 0], scrnpts[16, 1], scrnpts[0, 2]));
@@ -715,6 +734,7 @@ namespace asgn5v1
 
 			if (e.Button == resetbtn)
 			{
+                status = false;
                 RestoreInitialImage();
 			}
 
