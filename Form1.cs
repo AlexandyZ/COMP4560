@@ -717,18 +717,20 @@ namespace asgn5v1
             if (e.Button == shearleftbtn)
 			{
                 status = false;
-                ctrans = multiplication(ctrans, translateMatrix(-scrnpts[16, 0], -scrnpts[16, 1], -scrnpts[0, 2]));
+                double temp = ctrans[3, 1];
+                ctrans[3, 1] = 0.0d;
                 ctrans = multiplication(ctrans, shearMatrix(false));
-                ctrans = multiplication(ctrans, translateMatrix(scrnpts[16, 0], scrnpts[16, 1], scrnpts[0, 2]));
+                ctrans[3, 1] = temp;
                 Refresh();
 			}
 
 			if (e.Button == shearrightbtn) 
 			{
                 status = false;
-                ctrans = multiplication(ctrans, translateMatrix(-scrnpts[16, 0], -scrnpts[16, 1], -scrnpts[0, 2]));
+                double temp = ctrans[3, 1];
+                ctrans[3, 1] = 0.0d;
                 ctrans = multiplication(ctrans, shearMatrix(true));
-                ctrans = multiplication(ctrans, translateMatrix(scrnpts[16, 0], scrnpts[16, 1], scrnpts[0, 2]));
+                ctrans[3, 1] = temp;
                 Refresh();
 			}
 
